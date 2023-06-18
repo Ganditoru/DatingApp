@@ -13,6 +13,7 @@ export class MembersService {
   constructor(private http: HttpClient) { }
 
   getMembers() {
+    console.log("Try to load data for members")
     return this.http.get<Member[]>(this.baseUrl + 'users');
   }
 

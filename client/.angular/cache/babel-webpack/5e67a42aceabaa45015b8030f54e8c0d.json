@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { loginReducer } from \"./login/login.reducer\";\nimport { memberReducer } from \"./member/member.reducer\";\nimport { MemberEffects } from \"./member/member.effects\";\nexport const initialAppState = {\n  login: loginReducer,\n  member: memberReducer\n};\nexport const rootEffects = [MemberEffects];","map":null,"metadata":{},"sourceType":"module"}

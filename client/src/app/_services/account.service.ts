@@ -5,6 +5,9 @@ import { ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { User } from '../_models/user';
+import { Store } from '@ngrx/store';
+import { login, logout } from '../state/login/login.actions';
+import { selectUserName } from '../state/login/login.selector';
 
 @Injectable({
   providedIn: 'root'
@@ -14,15 +17,21 @@ export class AccountService {
   private currentUserSource = new ReplaySubject<User>(1);
   currentUser$ = this.currentUserSource.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private store: Store) { }
 
   login(model: any) {
     return this.http.post(this.baseUrl + 'account/login', model).pipe(
       map((response: User) => {
-        const user = response;
+        const user = response as User;
         if (user) {
           localStorage.setItem('user', JSON.stringify(user));
           this.currentUserSource.next(user);
+
+          // use ngrx
+          console.log(this.store.select(selectUserName));
+          this.store.dispatch(login({ user: user}))
+          console.log(this.store.select(selectUserName));
         }
       })
     );
@@ -34,6 +43,9 @@ export class AccountService {
         if (user) {
           localStorage.setItem('user', JSON.stringify(user));
           this.currentUserSource.next(user);
+
+          // use ngrx
+          this.store.dispatch(login({ user: user}))
         }
         return user;
       })
@@ -47,5 +59,8 @@ export class AccountService {
   logout() {
     localStorage.removeItem('user');
     this.currentUserSource.next(null);
+
+    // use ngrx
+    this.store.dispatch(logout());
   }
 }

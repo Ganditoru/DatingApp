@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { combineReducers } from \"@ngrx/store\";\nimport { loginReducer } from \"./login/login.reducer\";\nimport { memberReducer } from \"./member/member.reducer\";\nexport const reducers = {\n  login: loginReducer,\n  member: memberReducer\n};\nexport const rootReducer = combineReducers(reducers);","map":null,"metadata":{},"sourceType":"module"}

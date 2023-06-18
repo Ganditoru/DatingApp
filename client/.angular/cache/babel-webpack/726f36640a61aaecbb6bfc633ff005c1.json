@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { loginReducer } from \"./login/login.reducer\";\nimport { memberReducer } from \"./member/member.reducer\";\nexport const rootReducer = {\n  login: loginReducer,\n  member: memberReducer\n}; // export const rootReducer = combineReducers(reducers);","map":null,"metadata":{},"sourceType":"module"}
